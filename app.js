@@ -1,25 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetchProjects();
+    fetchSheetData();
 });
 
-async function fetchProjects() {
+async function fetchSheetData() {
     try {
-        const response = await fetch('/api/projects');
-        const projects = await response.json();
+        // Fetch data from your API endpoint that interacts with Google Sheets
+        const response = await fetch('/api/sheetData');
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const data = await response.json();
 
-        const projectsContainer = document.getElementById('projects');
-        projects.forEach(project => {
-            const projectElement = document.createElement('div');
-            projectElement.className = 'project';
-            projectElement.innerHTML = `
-                <h2>${project['Project Name']}</h2>
-                <p>${project.Description}</p>
-                <img src="${project['Image URL']}" alt="${project['Project Name']}">
-                <a href="${project['Project URL']}" target="_blank">Learn More</a>
+        // Select the container where the data will be displayed
+        const sheetDataContainer = document.getElementById('sheetData');
+        // Clear previous content
+        sheetDataContainer.innerHTML = '';
+
+        // Dynamically create and append elements for each item in the data
+        data.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'sheet-item';
+            itemElement.innerHTML = `
+                <h2>${item['Column 1']}</h2>
+                <p>${item['Column 2']}</p>
             `;
-            projectsContainer.appendChild(projectElement);
+            sheetDataContainer.appendChild(itemElement);
         });
     } catch (error) {
-        console.error('Error fetching projects:', error);
+        console.error('Error fetching sheet data:', error);
+        document.getElementById('sheetData').innerHTML = '<p>Error loading data. Please try again later.</p>';
     }
 }
