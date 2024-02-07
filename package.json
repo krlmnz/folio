@@ -1,0 +1,28 @@
+{
+  "name": "folio",
+  "version": "1.0.0",
+  "description": "portfolio site",
+  "main": "index.js",
+  "scripts": {
+    "test": "silkie"
+  },
+  "repository": {
+    "type": "git",
+    "url": "folio"
+  },
+  "keywords": [
+    "ui",
+    "ux",
+    "design",
+    "gis",
+    "karol",
+    "munoz",
+    "cities",
+    "technology"
+  ],
+  "author": "Karol Munoz",
+  "license": "ISC",
+  "dependencies": {
+    "googleapis": "^132.0.0"
+  }
+}
